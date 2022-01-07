@@ -2,6 +2,8 @@ import 'package:contact_wifi/pages/contact_access_page.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'contact_page.dart';
+
 class PhoneContactPage extends StatefulWidget {
   static const String id = "phone_contact_page";
 
@@ -75,7 +77,7 @@ class _PhoneContactPageState extends State<PhoneContactPage> {
           height: 50,
           color: Colors.lightBlueAccent,
           onPressed: () {
-            _askPermissions(ContactAccessPage.id);
+            _askPermissions(ContactPage.id);
           },
           // async {
           //   // final PermissionStatus permissionStatus = await _getPermission();
