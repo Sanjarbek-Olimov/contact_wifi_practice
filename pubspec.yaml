@@ -37,6 +37,7 @@ dependencies:
   url_launcher: ^6.0.17
   contacts_service: ^0.6.3
   permission_handler: ^8.3.0
+  wifi_iot: ^0.3.12
 
 dev_dependencies:
   flutter_test:

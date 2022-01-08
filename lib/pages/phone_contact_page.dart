@@ -1,4 +1,5 @@
 import 'package:contact_wifi/pages/contact_access_page.dart';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -6,8 +7,12 @@ import 'contact_page.dart';
 
 class PhoneContactPage extends StatefulWidget {
   static const String id = "phone_contact_page";
+  Iterable<Contact> _contacts = [];
 
-  const PhoneContactPage({Key? key}) : super(key: key);
+  Iterable<Contact> get phoneContact => _contacts;
+
+  PhoneContactPage({Key? key}) : super(key: key);
+
 
   @override
   _PhoneContactPageState createState() => _PhoneContactPageState();
@@ -15,14 +20,25 @@ class PhoneContactPage extends StatefulWidget {
 
 class _PhoneContactPageState extends State<PhoneContactPage> {
 
+
+
+
   //Check contacts permission
   @override
   void initState() {
     super.initState();
     _askPermissions(null);
+    // _getContacts();
   }
 
-  Future<void> _askPermissions(String? routeName) async {
+  Future<void> _getContacts() async{
+    widget._contacts = await ContactsService.getContacts();
+    setState(() {
+      widget._contacts = widget._contacts.where((element) => element.givenName!=null&&element.phones!.first.value!=null);
+    });
+  }
+
+  Future<void> _askPermissions(String? routeName) async{
     PermissionStatus permissionStatus = await _getContactPermission();
     if (permissionStatus == PermissionStatus.granted) {
       if (routeName != null) {
@@ -46,7 +62,7 @@ class _PhoneContactPageState extends State<PhoneContactPage> {
 
   void _handleInvalidPermissions(PermissionStatus permissionStatus) {
     if (permissionStatus == PermissionStatus.denied) {
-      final snackBar = SnackBar(content: Text('Access to contact data denied'));
+      final snackBar = SnackBar(content: const Text('Access to contact data denied'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
       final snackBar =
@@ -77,30 +93,8 @@ class _PhoneContactPageState extends State<PhoneContactPage> {
           height: 50,
           color: Colors.lightBlueAccent,
           onPressed: () {
-            _askPermissions(ContactPage.id);
+            _askPermissions(ContactAccessPage.id);
           },
-          // async {
-          //   // final PermissionStatus permissionStatus = await _getPermission();
-          //   // if (permissionStatus == PermissionStatus.granted) {
-          //   //   //We can now access our contacts here
-          //   //   Navigator.pushNamed(context, ContactAccessPage.id);
-          //   // } else {
-          //   //   //If permissions have been denied show standard cupertino alert dialog
-          //   //   showDialog(
-          //   //       context: context,
-          //   //       builder: (BuildContext context) => AlertDialog(
-          //   //         title: const Text('Permissions error'),
-          //   //         content: const Text('Please enable contacts access '
-          //   //             'permission in system settings'),
-          //   //         actions: <Widget>[
-          //   //           ElevatedButton(
-          //   //             child: const Text('OK'),
-          //   //             onPressed: () => Navigator.of(context).pop(),
-          //   //           )
-          //   //         ],
-          //   //       ));
-          //   // }
-          // },
           child: const Text('See Contacts', style: TextStyle(fontSize: 20, color: Colors.white),),
         ),
       ),

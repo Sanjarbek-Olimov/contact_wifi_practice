@@ -1,6 +1,8 @@
 import 'package:contact_wifi/pages/contact_access_page.dart';
 import 'package:contact_wifi/pages/contact_page.dart';
 import 'package:contact_wifi/pages/home_page.dart';
+import 'package:contact_wifi/pages/new_wifi_page.dart';
+import 'package:contact_wifi/pages/other_wifi_page.dart';
 import 'package:contact_wifi/pages/phone_contact_page.dart';
 import 'package:contact_wifi/pages/wifi_page.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,9 @@ class MyApp extends StatelessWidget {
         ContactPage.id: (context) => ContactPage(),
         WifiPage.id: (context) => WifiPage(),
         PhoneContactPage.id: (context) =>PhoneContactPage(),
-        ContactAccessPage.id: (context) => ContactAccessPage()
+        ContactAccessPage.id: (context) => ContactAccessPage(),
+        FlutterWifiIoT.id: (context)=> FlutterWifiIoT(),
+        NewWifiPage.id: (context) => NewWifiPage()
       },
     );
   }
