@@ -29,7 +29,7 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
     //page, so we can just retrieve it
     Iterable<Contact> contact = await ContactsService.getContacts();
     setState(() {
-      _contacts = contact;
+      _contacts = contact.where((element) => element.phones!.isNotEmpty);
     });
   }
 
@@ -53,7 +53,7 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
             ),
           ),
         ],
-        body: ListView(
+        body:ListView(
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
@@ -107,7 +107,7 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
               Flexible(
                   child: Text(
                 _contacts.elementAt(index).displayName ?? "No name",
-                style: TextStyle(fontWeight: FontWeight.normal),
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 13),
                 maxLines: 1,
                 softWrap: false,
                 overflow: TextOverflow.fade,
@@ -132,8 +132,9 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
         ),
         title: Text(
           _contacts.elementAt(index).displayName ?? "No name",
-          style: const TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 18),
         ),
+        subtitle: Text(_contacts.elementAt(index).phones!.first.value.toString()),
         trailing: IconButton(
           icon: Icon(
             Icons.phone,
