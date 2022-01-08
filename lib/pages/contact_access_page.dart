@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:contact_wifi/pages/phone_contact_page.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -61,7 +58,7 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
                 scrollDirection: Axis.horizontal,
                 itemCount: _contacts.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return _itemHorizContacts(index);
+                  return _itemHorizontalContacts(index);
                 },
               ),
             ),
@@ -80,7 +77,7 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
   }
 
 
-  Widget _itemHorizContacts(int index) {
+  Widget _itemHorizontalContacts(int index) {
     return MaterialButton(
       minWidth: MediaQuery.of(context).size.width * 0.2,
       onPressed: () {
@@ -101,13 +98,13 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
                   style: const TextStyle(fontSize: 25, color: Colors.white),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Flexible(
                   child: Text(
                 _contacts.elementAt(index).displayName ?? "No name",
-                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 13),
+                style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 13),
                 maxLines: 1,
                 softWrap: false,
                 overflow: TextOverflow.fade,

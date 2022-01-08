@@ -1,10 +1,7 @@
-import 'package:contact_wifi/pages/contact_page.dart';
 import 'package:contact_wifi/pages/new_wifi_page.dart';
 import 'package:contact_wifi/pages/phone_contact_page.dart';
 import 'package:contact_wifi/pages/wifi_page.dart';
 import 'package:flutter/material.dart';
-
-import 'other_wifi_page.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = "home_page";
