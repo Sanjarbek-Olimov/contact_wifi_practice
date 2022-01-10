@@ -81,7 +81,7 @@ class _LoadAutoPageState extends State<LoadAutoPage> {
           ListView.builder(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
-            itemCount: contacts.length > _currentMax
+            itemCount: contacts.length > myList.length  || _currentMax==20
                 ? myList.length + 1
                 : myList.length,
             itemBuilder: (context, index) {
