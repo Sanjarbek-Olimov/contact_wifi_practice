@@ -53,7 +53,7 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
         body:ListView(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15,
+              height: MediaQuery.of(context).size.height * 0.12,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: _contacts.length,
@@ -79,23 +79,23 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
 
   Widget _itemHorizontalContacts(int index) {
     return MaterialButton(
-      minWidth: MediaQuery.of(context).size.width * 0.2,
+      minWidth: MediaQuery.of(context).size.width * 0.17,
       onPressed: () {
         launch("tel://${_contacts.elementAt(index).phones!.first.value}");
       },
       padding: EdgeInsets.zero,
       child: Container(
           padding: const EdgeInsets.all(5),
-          width: MediaQuery.of(context).size.width * 0.2,
+          width: MediaQuery.of(context).size.width * 0.15,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
                 backgroundColor: colors[index%16],
-                maxRadius: MediaQuery.of(context).size.width * 0.078,
+                maxRadius: MediaQuery.of(context).size.width * 0.07,
                 child: Text(
                   _contacts.elementAt(index).initials(),
-                  style: const TextStyle(fontSize: 25, color: Colors.white),
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
               const SizedBox(
@@ -117,26 +117,25 @@ class _ContactAccessPageState extends State<ContactAccessPage> {
   Widget _itemContacts(int index) {
     return Card(
       child: ListTile(
-        contentPadding: const EdgeInsets.all(10),
         leading: CircleAvatar(
           backgroundColor: colors[index%16],
-          minRadius: 40,
-          maxRadius: 40,
+          minRadius: 25,
+          maxRadius: 25,
           child: Text(
             _contacts.elementAt(index).initials(),
-            style: const TextStyle(fontSize: 25, color: Colors.white),
+            style: const TextStyle(fontSize: 20, color: Colors.white),
           ),
         ),
         title: Text(
           _contacts.elementAt(index).displayName ?? "No name",
-          style: const TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 16),
         ),
         subtitle: Text(_contacts.elementAt(index).phones!.first.value.toString()),
         trailing: IconButton(
           icon: Icon(
             Icons.phone,
             color: Colors.greenAccent[400],
-            size: 30,
+            size: 25,
           ),
           onPressed: () {
             launch("tel://${_contacts.elementAt(index).phones!.first.value}");

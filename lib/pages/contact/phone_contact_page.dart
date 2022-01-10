@@ -1,4 +1,4 @@
-import 'package:contact_wifi/pages/contact_access_page.dart';
+import 'package:contact_wifi/pages/contact/contact_access_page.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -16,12 +16,16 @@ class _PhoneContactPageState extends State<PhoneContactPage> {
   @override
   void initState() {
     super.initState();
-    _askPermissions();
+    _askPermissions(null);
   }
 
-  Future<void> _askPermissions() async {
+  Future<void> _askPermissions(String? routeName) async {
     PermissionStatus permissionStatus = await _getContactPermission();
-    if (permissionStatus != PermissionStatus.granted) {
+    if (permissionStatus == PermissionStatus.granted) {
+      if (routeName != null) {
+        Navigator.of(context).pushNamed(routeName);
+      }
+    } else {
       _handleInvalidPermissions(permissionStatus);
     }
   }
@@ -39,8 +43,7 @@ class _PhoneContactPageState extends State<PhoneContactPage> {
 
   void _handleInvalidPermissions(PermissionStatus permissionStatus) {
     if (permissionStatus == PermissionStatus.denied) {
-      const snackBar =
-          SnackBar(content: Text('Access to contact data denied'));
+      const snackBar = SnackBar(content: Text('Access to contact data denied'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
       const snackBar =
@@ -51,6 +54,24 @@ class _PhoneContactPageState extends State<PhoneContactPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(child: Scaffold(body: ContactAccessPage()));
+    return SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("Contacts", style: TextStyle(fontSize: 25),),
+            centerTitle: true,
+            leading: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: (){},
+            ),
+          ),
+            body: Center(
+      child: MaterialButton(
+        height: 50,
+        shape: StadiumBorder(),
+        color: Colors.blueAccent,
+        onPressed: () => _askPermissions(ContactAccessPage.id),
+        child: Text("See device contacts", style: TextStyle(fontSize: 20, color: Colors.white),),
+      ),
+    )));
   }
 }
